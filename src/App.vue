@@ -1,8 +1,10 @@
 <template>
-  <HeaderMenu />
-  <v-app id="app">
-    <router-view/>
-  </v-app>
+  <div id="app">
+      <HeaderMenu />
+      <div class="main-content">
+        <router-view/>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -14,14 +16,32 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
+  --main-bg-color: #DAE3E5;
+  --header-bg-color: #04080F;
+  --btn-header-color: #A1C6EA;
+  --center-bg-color: #A1C6EA;
+  --article-bg-color: #A1C6EA;
+  --main-text-color: #04080F;
 }
 #app{
+  background-color: var(--main-bg-color);
+  width: 100vw;
   min-height: 100vh;
-  background-color: #FFA3A5;
+  max-height: fit-content;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content {
+  width: 60vw;
+  min-height: 90vh;
+  background-color: var(--center-bg-color);
 }
 </style>
