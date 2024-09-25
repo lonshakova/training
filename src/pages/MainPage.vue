@@ -2,6 +2,7 @@
 <div class="descriptions">
   <div v-for="cipher in ciphers">
     <CipherDescription :cipher="cipher"/>
+    <hr>
   </div>
 </div>
     
@@ -48,5 +49,9 @@ export default {
 </script>
 
 <style scoped>
+/* hr{
+  width: 50vw;
+  margin-left: 5vw;
+} */
 
 </style>

@@ -26,7 +26,7 @@
 
 .logo {
   margin:0;
-  min-height: 100px;
+  min-height: 10vh;
   font-size: 50px;
   font-weight: 700;
   color: var(--btn-header-color);
@@ -37,7 +37,7 @@
 
 .btn {
   margin: 10px 0;
-  width: 250px;
+  width: 13vw;
   min-width: fit-content;
   min-height: 56px;
   border-radius: 15px;
