@@ -2,7 +2,7 @@
 <div class="descriptions">
   <div v-for="cipher in ciphers">
     <CipherDescription :cipher="cipher"/>
-    <hr>
+    <!-- <hr> -->
   </div>
 </div>
     

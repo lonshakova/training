@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <v-btn class="logo" variant="text" @click="$router.push('/')">Ciphers</v-btn>
+    <div><a class="logo" href="/" @click="$router.push('/')">Ciphers</a></div>
     <v-btn class="btn" variant="flat" @click="$router.push('/caesar')">Шифр Цезаря</v-btn>
     <v-btn class="btn" variant="flat" @click="$router.push('/atbash')">Шифр Атбаша</v-btn>
     <v-btn class="btn" variant="flat" @click="$router.push('/vernam')">Шифр Вернама</v-btn>
@@ -27,9 +27,11 @@
 .logo {
   margin:0;
   min-height: 10vh;
-  font-size: 50px;
+  font-size: 60px;
   font-weight: 700;
   color: var(--btn-header-color);
+  cursor: pointer;
+  text-decoration: none;
 }
 .logo:hover {
   background: var(--header-bg-color);
@@ -38,7 +40,7 @@
 .btn {
   margin: 10px 0;
   width: 13vw;
-  min-width: fit-content;
+  min-width: 200px;
   min-height: 56px;
   border-radius: 15px;
   background: var(--btn-header-color);
