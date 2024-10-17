@@ -1,12 +1,12 @@
 <template>
-  <div class="header">
-    <div><a class="logo" href="/" @click="$router.push('/')">Ciphers</a></div>
+  <ul class="header">
+    <li><a class="logo" @click="$router.push('/')">Ciphers</a></li>
     <v-btn class="btn" variant="flat" @click="$router.push('/caesar')">Шифр Цезаря</v-btn>
     <v-btn class="btn" variant="flat" @click="$router.push('/atbash')">Шифр Атбаша</v-btn>
     <v-btn class="btn" variant="flat" @click="$router.push('/vernam')">Шифр Вернама</v-btn>
     <v-btn class="btn" variant="flat" @click="$router.push('/playfair')">Шифр Плейфера</v-btn>
     <v-btn class="btn" variant="flat" @click="$router.push('/codeword')">Кодовое слово</v-btn>
-  </div>
+  </ul>
 </template>
 
 <script>
@@ -22,6 +22,10 @@
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+.header:last-child {
+  margin-left: 10px;
 }
 
 .logo {
