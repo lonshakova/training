@@ -6,6 +6,7 @@
         <p class="description">
             {{ cipher.description }}
         </p>
+        <v-divider />
     </div>
 </template>
 

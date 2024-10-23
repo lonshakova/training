@@ -1,40 +1,44 @@
 <template>
-  <v-form class="main-content">
-    <div class="text-input">
-      Введите текст, который хотите зашифровать:
-      <v-textarea
-        class="input"
-        clearable
-        variant="solo"
-        bg-color="var(--input-bg-color)"
-        rows="5"
-        no-resize
-        v-model="text"
-      />
-    </div>
-    <div class="input-number">
-      Укажите размер сдвига:
-      <div class="number-and-btn">
-        <v-text-field
+  <div class="main-content">
+    <v-form class="text-form">
+      <div class="text-input">
+        Введите текст, который хотите зашифровать:
+        <v-textarea
           class="input"
-          density="compact"
-          type="number"
-          bg-color="var(--input-bg-color)"
+          clearable
           variant="solo"
-          max-width="100px"
-          v-model="shift"
+          bg-color="var(--input-bg-color)"
+          rows="5"
+          no-resize
+          v-model="text"
         />
-        <div v-if="shift < -33 || shift > 33" class="error-number">
-          <v-icon icon="mdi-alert-circle"></v-icon>
-          Значение не может быть меньше -33 или больше 33
-        </div>
-        <v-btn class="input" size="x-large" v-if="!(shift < -33 || shift > 33)" @click="encryptText()" 
-          >Готово</v-btn
-        >
       </div>
-    </div>
-  </v-form>
-  {{ newText }}
+      <div class="input-number">
+        Укажите размер сдвига:
+        <div class="number-and-btn">
+          <v-text-field
+            class="input"
+            density="compact"
+            type="number"
+            bg-color="var(--input-bg-color)"
+            variant="solo"
+            max-width="100px"
+            v-model="shift"
+          />
+          <div v-if="shift < -33 || shift > 33" class="error-number">
+            <v-icon icon="mdi-alert-circle"></v-icon>
+            Значение не может быть меньше -33 или больше 33
+          </div>
+          <v-btn class="input" size="x-large" v-if="!(shift < -33 || shift > 33)" @click="encryptText()" 
+            >Готово</v-btn
+          >
+        </div>
+      </div>
+    </v-form>
+    <v-card class="new-text"  variant="text">
+      {{ newText }}
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -80,27 +84,30 @@ export default {
 <style scoped>
 .main-content {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+}
+
+.text-form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
 }
 
 .text-input {
   margin-top: 5vh;
   height: fit-content;
-  width: 90%;
   font-size: large;
   font-weight: 500;
   color: var(--main-text-color);
 }
 
-.input {
+.input:deep {
   margin-top: 10px;
   box-sizing: content-box;
 }
 
 .input-number {
-  margin: 0;
-  width: 90%;
   font-size: large;
   font-weight: 500;
   color: var(--main-text-color);
@@ -115,5 +122,13 @@ export default {
   margin-top: 1em;
   justify-self: left;
   color: red;
+}
+
+.new-text {
+  padding: 1% 2%;
+  min-height: 14vh;
+  width: 86%;
+  background-color: var(--new-text-bg-color);
+  border-radius: 5px;
 }
 </style>
