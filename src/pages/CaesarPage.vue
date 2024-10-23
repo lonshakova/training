@@ -54,12 +54,12 @@ export default {
         var upperInd = alphabetUpperRus.indexOf(letter);
         if (lowerInd != -1) {
           lowerInd = (lowerInd + +shift.value) % 33;
-          lowerInd = lowerInd > 0 ? lowerInd : 33 + lowerInd;
+          lowerInd = lowerInd > 0 ? lowerInd : (33 + lowerInd) % 33;
           newText.value += alphabetLowerRus[lowerInd];
         }
         else if (upperInd != -1) {
           upperInd = (upperInd + +shift.value) % 33;
-          upperInd = upperInd > 0 ? upperInd : 33 - upperInd;
+          upperInd = upperInd > 0 ? upperInd : (33 + upperInd) % 33;
           newText.value += alphabetUpperRus[upperInd];
         }
         else {
