@@ -25,60 +25,115 @@
             max-width="100px"
             v-model="shift"
           />
-          <div v-if="shift < -33 || shift > 33" class="error-number">
+          <div v-if="shift < -32 || shift > 32" class="error-number">
             <v-icon icon="mdi-alert-circle"></v-icon>
-            Значение не может быть меньше -33 или больше 33
+            Значение не может быть меньше -32 или больше 32
           </div>
-          <v-btn class="input" size="x-large" v-if="!(shift < -33 || shift > 33)" @click="encryptText()" 
-            >Готово</v-btn
-          >
         </div>
       </div>
     </v-form>
-    <v-card class="new-text"  variant="text">
+    <v-card class="new-text" variant="text">
       {{ newText }}
     </v-card>
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
-export default {
-  setup(props) {
-    let text = ref("");
-    let shift = ref(0);
-    let newText = ref("");
-    const alphabetLowerRus = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'];
-    const alphabetUpperRus = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'];
-    function encryptText() {
-      newText.value = "";
-      let letter="";
-      for (letter of text.value) {
-        var lowerInd = alphabetLowerRus.indexOf(letter);
-        var upperInd = alphabetUpperRus.indexOf(letter);
-        if (lowerInd != -1) {
-          lowerInd = (lowerInd + +shift.value) % 33;
-          lowerInd = lowerInd > 0 ? lowerInd : (33 + lowerInd) % 33;
-          newText.value += alphabetLowerRus[lowerInd];
-        }
-        else if (upperInd != -1) {
-          upperInd = (upperInd + +shift.value) % 33;
-          upperInd = upperInd > 0 ? upperInd : (33 + upperInd) % 33;
-          newText.value += alphabetUpperRus[upperInd];
-        }
-        else {
-          newText.value += letter;
-        }
-      }
+<script setup>
+import { ref, computed } from "vue";
+
+let text = ref("");
+let shift = ref(0);
+
+let newText = computed(function() {
+  let newtext = "";
+  let letter = "";
+  for (letter of text.value) {
+    var lowerInd = alphabetLowerRus.indexOf(letter);
+    var upperInd = alphabetUpperRus.indexOf(letter);
+    if (lowerInd != -1) {
+      lowerInd = (lowerInd + +shift.value) % 33;
+      lowerInd = lowerInd > 0 ? lowerInd : (33 + lowerInd) % 33;
+      newtext += alphabetLowerRus[lowerInd];
+    } else if (upperInd != -1) {
+      upperInd = (upperInd + +shift.value) % 33;
+      upperInd = upperInd > 0 ? upperInd : (33 + upperInd) % 33;
+      newtext += alphabetUpperRus[upperInd];
+    } else {
+      newtext += letter;
     }
-    return {
-      text,
-      shift,
-      newText,
-      encryptText,
-    };
-  },
-};
+  }
+  return newtext;
+});
+const alphabetLowerRus = [
+  "а",
+  "б",
+  "в",
+  "г",
+  "д",
+  "е",
+  "ё",
+  "ж",
+  "з",
+  "и",
+  "й",
+  "к",
+  "л",
+  "м",
+  "н",
+  "о",
+  "п",
+  "р",
+  "с",
+  "т",
+  "у",
+  "ф",
+  "х",
+  "ц",
+  "ч",
+  "ш",
+  "щ",
+  "ъ",
+  "ы",
+  "ь",
+  "э",
+  "ю",
+  "я",
+];
+const alphabetUpperRus = [
+  "А",
+  "Б",
+  "В",
+  "Г",
+  "Д",
+  "Е",
+  "Ё",
+  "Ж",
+  "З",
+  "И",
+  "Й",
+  "К",
+  "Л",
+  "М",
+  "Н",
+  "О",
+  "П",
+  "Р",
+  "С",
+  "Т",
+  "У",
+  "Ф",
+  "Х",
+  "Ц",
+  "Ч",
+  "Ш",
+  "Щ",
+  "Ъ",
+  "Ы",
+  "Ь",
+  "Э",
+  "Ю",
+  "Я",
+];
 </script>
 
 <style scoped>
