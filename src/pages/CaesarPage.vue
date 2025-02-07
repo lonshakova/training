@@ -153,26 +153,29 @@ let newText = computed(() => {
   margin-top: 5vh;
 
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+}
+
+.text-form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
 }
 
 .text {
   height: fit-content;
-  width: 90%;
   font-size: large;
   font-weight: 500;
   color: var(--main-text-color);
 }
 
-.input {
+.input:deep {
   margin-top: 10px;
   box-sizing: content-box;
 }
 
 .input-number {
-  margin: 0;
-  width: 90%;
   font-size: large;
   font-weight: 500;
   color: var(--main-text-color);

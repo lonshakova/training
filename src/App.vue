@@ -28,6 +28,7 @@ export default {
   --article-bg-color: #A1C6EA;
   --main-text-color: #04080F;
   --input-bg-color: rgb(203, 227, 255);
+  --new-text-bg-color: rgb(203, 227, 255);
 }
 #app{
   background-color: var(--main-bg-color);
