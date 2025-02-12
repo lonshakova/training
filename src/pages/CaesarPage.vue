@@ -32,6 +32,12 @@
     </div>
     
     <div class="text">
+      <v-btn
+        @click="generateNewText()"
+        :readonly="shift > -33 && shift < 33 ? false : true"
+        :variant="shift > -33 && shift < 33 ? 'elevated' : 'tonal'"
+        >Зашифровать текст</v-btn
+      >
       <v-textarea
         class="input"
         clearable
@@ -47,10 +53,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 let oldText = ref("");
 let shift = ref(0);
+
 const alphabetLowerRus = [
   "а",
   "б",
@@ -123,9 +130,12 @@ const alphabetUpperRus = [
   "Я",
 ];
 
-let newText = computed(() => {
+let newText = ref("");
+
+function generateNewText(){
+  newText.value = "";
   if (shift.value < -33 || shift.value > 33) {
-    return "";
+    newText.value = "";
   }
   let letter = "";
   let text = "";
@@ -135,17 +145,16 @@ let newText = computed(() => {
     if (lowerInd != -1) {
       lowerInd = (lowerInd + +shift.value) % 33;
       lowerInd = lowerInd >= 0 ? lowerInd : 33 + lowerInd;
-      text += alphabetLowerRus[lowerInd];
+      newText.value  += alphabetLowerRus[lowerInd];
     } else if (upperInd != -1) {
       upperInd = (upperInd + +shift.value) % 33;
       upperInd = upperInd >= 0 ? upperInd : 33 + upperInd;
-      text += alphabetUpperRus[upperInd];
+      newText.value  += alphabetUpperRus[upperInd];
     } else {
-      text += letter;
+      newText.value  += letter;
     }
   }
-  return text;
-});
+}
 </script>
 
 <style scoped>

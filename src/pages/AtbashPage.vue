@@ -13,6 +13,10 @@
       />
     </div>
     <div class="text">
+      <v-btn
+        @click="generateNewText()"
+        >Зашифровать текст</v-btn
+      >
       <v-textarea
         class="input"
         readonly
@@ -27,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 let oldText = ref("");
 let shift = ref(0);
@@ -66,6 +70,7 @@ const alphabetLowerRus = [
   "ю",
   "я",
 ];
+
 const alphabetUpperRus = [
   "А",
   "Б",
@@ -102,9 +107,12 @@ const alphabetUpperRus = [
   "Я",
 ];
 
-let newText = computed(() => {
+let newText = ref("");
+
+function generateNewText() {
+  newText.value = "";
   if (shift.value < -33 || shift.value > 33) {
-    return "";
+    newText.value = "";
   }
   let letter = "";
   let text = "";
@@ -112,15 +120,14 @@ let newText = computed(() => {
     var lowerInd = alphabetLowerRus.indexOf(letter);
     var upperInd = alphabetUpperRus.indexOf(letter);
     if (lowerInd != -1) {
-      text += alphabetLowerRus[-lowerInd + 32];
+      newText.value += alphabetLowerRus[-lowerInd + 32];
     } else if (upperInd != -1) {
-      text += alphabetUpperRus[-upperInd + 32];
+      newText.value += alphabetUpperRus[-upperInd + 32];
     } else {
-      text += letter;
+      newText.value += letter;
     }
   }
-  return text;
-});
+}
 </script>
 
 <style scoped>
