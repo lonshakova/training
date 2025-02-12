@@ -150,7 +150,6 @@ function generateNewText() {
   const newUpperAlphabet = [...new Set(upperKeyArray.concat(alphabetUpperRus))];
 
   let lowerMatrix = generateMatrix(newLowerAlphabet);
-  let upperMatrix = generateMatrix(newUpperAlphabet);
 
   let textWithoutSpaces = "";
   for (let letter of oldText.value) {
