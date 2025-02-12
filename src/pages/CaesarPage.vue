@@ -1,69 +1,57 @@
 <template>
-  <div class="main-content">
-    <v-form class="text-form">
-      <div class="text-input">
-        Введите текст, который хотите зашифровать:
-        <v-textarea
+  <v-form class="main-content">
+    <div class="text">
+      Введите текст, который хотите зашифровать:
+      <v-textarea
+        class="input"
+        clearable
+        variant="solo"
+        bg-color="var(--input-bg-color)"
+        rows="5"
+        no-resize
+        v-model="oldText"
+      />
+    </div>
+    <div class="input-number">
+      Укажите размер сдвига:
+      <div class="number-and-btn">
+        <v-text-field
           class="input"
-          clearable
-          variant="solo"
+          density="compact"
+          type="number"
           bg-color="var(--input-bg-color)"
-          rows="5"
-          no-resize
-          v-model="text"
+          variant="solo"
+          max-width="100px"
+          v-model="shift"
         />
+        <div v-if="shift < -33 || shift > 33" class="error-number">
+        <v-icon icon="mdi-alert-circle"></v-icon>
+        Значение не может быть меньше -33 или больше 33
       </div>
-      <div class="input-number">
-        Укажите размер сдвига:
-        <div class="number-and-btn">
-          <v-text-field
-            class="input"
-            density="compact"
-            type="number"
-            bg-color="var(--input-bg-color)"
-            variant="solo"
-            max-width="100px"
-            v-model="shift"
-          />
-          <div v-if="shift < -32 || shift > 32" class="error-number">
-            <v-icon icon="mdi-alert-circle"></v-icon>
-            Значение не может быть меньше -32 или больше 32
-          </div>
-        </div>
       </div>
-    </v-form>
-    <v-card class="new-text" variant="text">
-      {{ newText }}
-    </v-card>
-  </div>
+    </div>
+    
+    <div class="text">
+      
+      <v-textarea
+        class="input"
+        readonly
+        variant="solo"
+        bg-color="var(--input-bg-color)"
+        rows="5"
+        no-resize
+        v-model="newText"
+      />
+      
+    </div>
+  </v-form>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
 
-let text = ref("");
+let oldText = ref("");
 let shift = ref(0);
-
-let newText = computed(function() {
-  let newtext = "";
-  let letter = "";
-  for (letter of text.value) {
-    var lowerInd = alphabetLowerRus.indexOf(letter);
-    var upperInd = alphabetUpperRus.indexOf(letter);
-    if (lowerInd != -1) {
-      lowerInd = (lowerInd + +shift.value) % 33;
-      lowerInd = lowerInd > 0 ? lowerInd : (33 + lowerInd) % 33;
-      newtext += alphabetLowerRus[lowerInd];
-    } else if (upperInd != -1) {
-      upperInd = (upperInd + +shift.value) % 33;
-      upperInd = upperInd > 0 ? upperInd : (33 + upperInd) % 33;
-      newtext += alphabetUpperRus[upperInd];
-    } else {
-      newtext += letter;
-    }
-  }
-  return newtext;
-});
 const alphabetLowerRus = [
   "а",
   "б",
@@ -134,10 +122,36 @@ const alphabetUpperRus = [
   "Ю",
   "Я",
 ];
+
+let newText = computed(() => {
+  if (shift.value < -33 || shift.value > 33) {
+    return "";
+  }
+  let letter = "";
+  let text = "";
+  for (letter of oldText.value) {
+    var lowerInd = alphabetLowerRus.indexOf(letter);
+    var upperInd = alphabetUpperRus.indexOf(letter);
+    if (lowerInd != -1) {
+      lowerInd = (lowerInd + +shift.value) % 33;
+      lowerInd = lowerInd >= 0 ? lowerInd : 33 + lowerInd;
+      text += alphabetLowerRus[lowerInd];
+    } else if (upperInd != -1) {
+      upperInd = (upperInd + +shift.value) % 33;
+      upperInd = upperInd >= 0 ? upperInd : 33 + upperInd;
+      text += alphabetUpperRus[upperInd];
+    } else {
+      text += letter;
+    }
+  }
+  return text;
+});
 </script>
 
 <style scoped>
 .main-content {
+  margin-top: 5vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,8 +163,7 @@ const alphabetUpperRus = [
   width: 90%;
 }
 
-.text-input {
-  margin-top: 5vh;
+.text {
   height: fit-content;
   font-size: large;
   font-weight: 500;
@@ -170,20 +183,11 @@ const alphabetUpperRus = [
 
 .number-and-btn {
   display: flex;
-  justify-content: space-between;
 }
 
 .error-number {
-  margin-top: 1em;
-  justify-self: left;
   color: red;
-}
-
-.new-text {
-  padding: 1% 2%;
-  min-height: 14vh;
-  width: 86%;
-  background-color: var(--new-text-bg-color);
-  border-radius: 5px;
+  justify-self: center;
+  align-self: center;
 }
 </style>
