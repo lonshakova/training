@@ -25,17 +25,16 @@
           v-model="shift"
         />
         <div v-if="shift < -33 || shift > 33" class="error-number">
-        <v-icon icon="mdi-alert-circle"></v-icon>
+        <v-icon icon="mdi-alert-circle"/>
         Значение не может быть меньше -33 или больше 33
       </div>
       </div>
     </div>
     
     <div class="text">
-      
       <v-textarea
         class="input"
-        readonly
+        clearable
         variant="solo"
         bg-color="var(--input-bg-color)"
         rows="5"
@@ -87,6 +86,7 @@ const alphabetLowerRus = [
   "ю",
   "я",
 ];
+
 const alphabetUpperRus = [
   "А",
   "Б",
@@ -151,26 +151,20 @@ let newText = computed(() => {
 <style scoped>
 .main-content {
   margin-top: 5vh;
-
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.text-form {
-  display: flex;
   flex-direction: column;
-  width: 90%;
 }
 
 .text {
   height: fit-content;
+  width: 90%;
   font-size: large;
   font-weight: 500;
   color: var(--main-text-color);
 }
 
-.input:deep {
+.input {
   margin-top: 10px;
   box-sizing: content-box;
 }
@@ -179,10 +173,13 @@ let newText = computed(() => {
   font-size: large;
   font-weight: 500;
   color: var(--main-text-color);
+  align-self: right;
+  width: 90%;
 }
 
 .number-and-btn {
   display: flex;
+  width: 100%;
 }
 
 .error-number {
