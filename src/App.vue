@@ -25,7 +25,7 @@ export default {
   --header-bg-color: #04080F;
   --btn-header-color: #A1C6EA;
   --center-bg-color: #A1C6EA;
-  --article-bg-color: #A1C6EA;
+  --article-bg-color: rgba(203, 227, 255, 0.5);
   --main-text-color: #04080F;
   --input-bg-color: rgb(203, 227, 255);
   --new-text-bg-color: rgb(203, 227, 255);
